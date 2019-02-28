@@ -16,8 +16,12 @@ var colors = [
   '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+
+
+
+
 function connect(event) {
-  username = "Mahadev";
+  username = "Cloud Gaming";
   if (username) {
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
@@ -56,7 +60,7 @@ function sendMessage(event) {
     };
 
     stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-    messageInput.value = '';
+//    messageInput.value = '';
   }
   event.preventDefault();
 }
@@ -64,8 +68,21 @@ function sendMessage(event) {
 
 function onMessageReceived(payload) {
   var message = JSON.parse(payload.body);
-  console.log("Message..", message)
-  alert("Message received..")
+  console.log("Message..from server", message)
+//  var dir_x=message.dx;
+//  var dir_y=message.dy;
+//   console.log("hii dx = ", dir_x,"  hiii dy = ",dir_y)
+//if(message.content==="")
+
+  //snake.dx = -grid;
+  //snake.dy = 0;
+
+
+
+
+
+
+ // alert("Message received..")
   // var messageElement = document.createElement('li');
   //
   // if (message.type === 'JOIN') {
@@ -121,6 +138,12 @@ var context = canvas.getContext('2d');
 var grid = 16;
 var count = 0;
 
+
+
+
+
+
+
 var snake = {
   x: 160,
   y: 160,
@@ -135,6 +158,16 @@ var snake = {
   // length of the snake. grows when eating an apple
   maxCells: 4
 };
+
+
+
+
+
+
+
+
+
+
 var apple = {
   x: 320,
   y: 320
@@ -222,30 +255,83 @@ document.addEventListener('keydown', function (e) {
   // left arrow key
 
   if (e.which === 37 && snake.dx === 0) {
-    snake.dx = -grid;
-    snake.dy = 0;
-    alert("left arrow");
+  snake.dx = -grid;
+   snake.dy = 0;
+    var messageContent = "left arrow";
+    if(messageContent && stompClient) {
+            var chatMessage = {
+                sender: username,
+                content: "e.which === 37 && snake.dx === 0",
+                dx: 37,
+                dy: 0,
+                type: 'CHAT'
+            };
+
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+            messageInput.value = 'left';
+        }
+        event.preventDefault();
+    //alert("left arrow");
   }
   // up arrow key
 
   else if (e.which === 38 && snake.dy === 0) {
     snake.dy = -grid;
     snake.dx = 0;
-    alert("up arrow");
+      var messageContent = "up arrow";
+        if(messageContent && stompClient) {
+                var chatMessage = {
+                    sender: username,
+                    content: "Up Arrow",
+                    type: 'CHAT'
+                };
+
+                stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+                messageInput.value = '';
+            }
+            event.preventDefault();
+  //  alert("up arrow");
   }
   // right arrow key
 
   else if (e.which === 39 && snake.dx === 0) {
     snake.dx = grid;
     snake.dy = 0;
-    alert("right arrow");
+
+      var messageContent = "right arrow";
+        if(messageContent && stompClient) {
+                var chatMessage = {
+                    sender: username,
+                    content: "right arrow",
+                    type: 'CHAT'
+                };
+
+                stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+                messageInput.value = '';
+            }
+            event.preventDefault();
+
+   // alert("right arrow");
   }
   // down arrow key
 
   else if (e.which === 40 && snake.dy === 0) {
     snake.dy = grid;
     snake.dx = 0;
-    alert("down arrow");
+
+      var messageContent = "Down arrow";
+        if(messageContent && stompClient) {
+                var chatMessage = {
+                    sender: username,
+                    content: "Down Arrow",
+                    type: 'CHAT'
+                };
+
+                stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+                messageInput.value = '';
+            }
+            event.preventDefault();
+    //alert("down arrow");
   }
 });
 // start the game

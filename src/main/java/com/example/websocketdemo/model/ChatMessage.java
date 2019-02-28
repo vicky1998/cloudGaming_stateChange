@@ -6,16 +6,28 @@ package com.example.websocketdemo.model;
 public class ChatMessage {
     private MessageType type;
     private String content;
+    private int dx,dy;
+
     private String sender;
 
-    @Override
-    public String toString() {
-        return "ChatMessage{" +
-                "type=" + type +
-                ", content='" + content + '\'' +
-                ", sender='" + sender + '\'' +
-                '}';
+//    @Override
+//    public String toString() {
+//        return "ChatMessage{" +
+//                "type=" + type +
+//                "dx=" +dx+
+//                "dy= "+ dy+
+//                ", content='" + content + '\'' +
+//                ", sender='" + sender + '\'' +
+//                '}';
+//    }
+
+    public void setDy(int i) {
+        this.dy=i;
     }
+    public void setDx(int i) {
+        this.dx=i;
+    }
+
 
     public enum MessageType {
         CHAT,
@@ -37,6 +49,14 @@ public class ChatMessage {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
     }
 
     public String getSender() {

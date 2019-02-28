@@ -10,7 +10,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 /**
- * Created by rajeevkumarsingh on 24/07/17.
+ *.
  */
 @Controller
 public class ChatController {
@@ -20,6 +20,31 @@ public class ChatController {
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         logger.info("Got new Message" + chatMessage.toString());
+        if(chatMessage.getContent().equals("e.which === 37 && snake.dx === 0")){
+            //if (e.which === 37 && snake.dx === 0) {
+
+
+            chatMessage.setContent("left matched");
+            chatMessage.setDx(-16);
+            chatMessage.setDy(0);
+
+        }else if(chatMessage.getContent().equals("Up Arrow")){
+            chatMessage.setContent("up matched");
+
+
+
+
+        }else if(chatMessage.getContent().equals("right arrow")){
+            chatMessage.setContent("right matched");
+
+
+
+        }else if(chatMessage.getContent().equals("Down Arrow")){
+            chatMessage.setContent("Down matched");
+        }
+        else {
+            chatMessage.setContent("did not match");
+        }
         return chatMessage;
     }
 
